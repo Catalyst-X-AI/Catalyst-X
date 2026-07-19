@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StatRow from '../components/StatRow.astro';
+import Callouts from '../components/Callouts.astro';
+import GentleNote from '../components/GentleNote.astro';
+import SourcesList from '../components/SourcesList.astro';
+import LeadCaptureBox from '../components/LeadCaptureBox.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const d = page.data;
+const heroClass = d.heroStyle === 'warm' ? 'warm-hero' : 'hero';
+---
+<BaseLayout title={d.title} description={d.lede} currentSlug={page.id}>
+  <div class={heroClass}>
+    <span class="eyebrow">{d.eyebrow}</span>
+    <h1>{d.title}</h1>
+    <p class="lede">{d.lede}</p>
+  </div>
+  <div class="content-wrap narrowtop">
+    <StatRow tiles={d.statTiles} />
+    <Content />
+    <Callouts items={d.callouts} />
+    <GentleNote text={d.gentleNote} />
+    {(page.id === 'start' || page.id === 'aicope' || page.id === 'resilience') && <LeadCaptureBox />}
+    <SourcesList items={d.sources} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+
+const { currentSlug } = Astro.props;
+
+const allPages = await getCollection('pages');
+const visible = allPages.filter((p) => p.data.showInNav && p.data.navGroup !== 'none');
+
+function groupPages(group) {
+  return visible
+    .filter((p) => p.data.navGroup === group)
+    .sort((a, b) => a.data.navOrder - b.data.navOrder);
+}
+
+const foundations = groupPages('foundations');
+const aiEra = groupPages('ai-era');
+const forYou = groupPages('for-you');
+---
+<div class="sidebar">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox" />
+  <div class="sidebar-topbar">
+    <a class="brand" href="/">
+      <div class="brand-mark">X</div>
+      <div class="brand-name">Catalyst X</div>
+    </a>
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+  <div class="brand-tag">Corporate Psychology Practice</div>
+
+  <div class="nav-links">
+    <div class="nav-group">
+      <a class:list={["nav-link", { active: currentSlug === '' }]} href="/">Introduction</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Foundations of Workplace Psychology</div>
+      {foundations.map((page) => (
+        <a class:list={["nav-link", { active: currentSlug === page.id }]} href={`/${page.id}/`}>
+          {page.data.navLabel ?? page.data.title}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Corporate Psychology in the Age of AI</div>
+      {aiEra.map((page) => (
+        <a class:list={["nav-link", { active: currentSlug === page.id }]} href={`/${page.id}/`}>
+          {page.data.navLabel ?? page.data.title}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">For You: Personal Support</div>
+      {forYou.map((page) => (
+        <a class:list={["nav-link", { active: currentSlug === page.id }]} href={`/${page.id}/`}>
+          {page.data.navLabel ?? page.data.title}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-title">Connect</div>
+      <a class:list={["nav-link", { active: currentSlug === 'contact' }]} href="/contact/">Get in Touch</a>
+    </div>
+
+    <div class="sidebar-foot">
+      Educational resource &mdash; Catalyst X<br>Service offerings launching soon
+    </div>
+  </div>
+</div>

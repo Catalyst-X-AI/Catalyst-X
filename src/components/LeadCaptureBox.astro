@@ -1,0 +1,25 @@
+---
+// Reusable, lightweight lead-capture form (Netlify Forms — zero backend required).
+// If hosting elsewhere, swap the form `action`/attributes for that provider (see BUILD_LOG.md).
+const {
+  heading = "Stay connected",
+  body = "Catalyst X is currently a free research and resource hub. We're building toward organizational service offerings next — leave your email if you'd like early updates, or to talk to us about your team's needs.",
+} = Astro.props;
+---
+<div class="lead-box">
+  <h3>{heading}</h3>
+  <p>{body}</p>
+  <form class="lead-form" name="lead-capture" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you/">
+    <input type="hidden" name="form-name" value="lead-capture" />
+    <p class="hp"><label>Don't fill this out: <input name="bot-field" /></label></p>
+    <input type="text" name="name" placeholder="Your name" required />
+    <input type="email" name="email" placeholder="Work email" required />
+    <select name="interest">
+      <option value="updates">Just send me updates</option>
+      <option value="organization">I want to talk about my organization</option>
+      <option value="personal">I'm looking for personal support resources</option>
+    </select>
+    <button type="submit">Keep me posted</button>
+  </form>
+  <p class="form-note">We'll only use this to share Catalyst X updates and, if you ask, to follow up about working together. No spam.</p>
+</div>

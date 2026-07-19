@@ -1,0 +1,6 @@
+---
+const { items = [] } = Astro.props;
+---
+{items.map((text) => (
+  <div class="callout" set:html={text} />
+))}

@@ -1,0 +1,13 @@
+---
+const { items = [] } = Astro.props;
+---
+{items.length > 0 && (
+  <div class="sources">
+    <strong>Sources &amp; Further Reading</strong>
+    {items.map((s) => (
+      <div class="src-item">
+        &mdash; {s.url ? <a href={s.url} target="_blank" rel="noopener">{s.label}</a> : <span>{s.label}</span>}
+      </div>
+    ))}
+  </div>
+)}

@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Get in Touch" description="Connect with Catalyst X for updates or to talk about your organization's needs." currentSlug="contact">
+  <div class="warm-hero">
+    <span class="eyebrow">Connect</span>
+    <h1>Get in Touch</h1>
+    <p class="lede">Catalyst X is currently a free, research-backed resource — service offerings for organizations are coming next. Whether you want to be the first to know, or want to start a conversation early, we'd like to hear from you.</p>
+  </div>
+  <div class="content-wrap narrowtop">
+    <p>Tell us a little about what brought you here. We read every message personally — there's no sales team and no automated follow-up sequence yet, just a small team building this thoughtfully.</p>
+
+    <form class="contact-page-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you/" style="max-width:560px; margin-top:28px;">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hp" style="position:absolute; left:-9999px;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="organization">Organization (optional)</label>
+      <input type="text" id="organization" name="organization" />
+
+      <label for="reason">What are you reaching out about?</label>
+      <select id="reason" name="reason">
+        <option value="updates">Just want updates as Catalyst X grows</option>
+        <option value="organization">Exploring this for my organization</option>
+        <option value="personal">Looking for personal support / resources</option>
+        <option value="other">Something else</option>
+      </select>
+
+      <label for="message">Message (optional)</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+    <p class="form-note" style="margin-top:14px;">By submitting, you agree to be contacted by Catalyst X about your message. We won't share your information. This site offers general information only and is not a substitute for professional advice or care.</p>
+  </div>
+</BaseLayout>

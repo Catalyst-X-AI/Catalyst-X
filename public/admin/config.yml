@@ -1,0 +1,61 @@
+# Decap CMS configuration
+# Production backend: Git Gateway via Netlify Identity.
+# To enable: in the Netlify site dashboard, turn on Identity + Git Gateway,
+# then invite Sam/Harry as Identity users. See BUILD_LOG.md for full steps.
+backend:
+  name: git-gateway
+  branch: main
+
+# Where media uploads go (not used yet — no images on the site currently)
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "pages"
+    label: "Site Pages"
+    folder: "src/content/pages"
+    create: false          # page set is fixed for now; adding a page also needs a nav entry + route, so ask Tim
+    delete: false
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Navigation group"
+        name: "navGroup"
+        widget: "select"
+        options: ["foundations", "ai-era", "for-you", "none"]
+      - { label: "Nav label (short title in sidebar)", name: "navLabel", widget: "string", required: false }
+      - { label: "Nav order (lower = higher up)", name: "navOrder", widget: "number", value_type: "int", default: 0 }
+      - label: "Hero style"
+        name: "heroStyle"
+        widget: "select"
+        options: ["navy", "warm"]
+        hint: "navy = organizational/consultancy pages, warm = 'For You' personal pages"
+      - { label: "Eyebrow label (small tag above title)", name: "eyebrow", widget: "string" }
+      - { label: "Lede (subheading under the title)", name: "lede", widget: "text" }
+      - { label: "Home page card blurb (optional, falls back to lede)", name: "cardBlurb", widget: "string", required: false }
+      - label: "Stat tiles"
+        name: "statTiles"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Number", name: "number", widget: "string" }
+          - { label: "Label", name: "label", widget: "string" }
+      - label: "Callout boxes"
+        name: "callouts"
+        widget: "list"
+        required: false
+        field: { label: "Callout text", name: "callout", widget: "text" }
+      - { label: "Gentle note (soft disclaimer box, used on 'For You' pages)", name: "gentleNote", widget: "text", required: false }
+      - label: "Sources"
+        name: "sources"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string", required: false }
+      - { label: "Show in navigation", name: "showInNav", widget: "boolean", default: true }
+      - { label: "Body", name: "body", widget: "markdown" }

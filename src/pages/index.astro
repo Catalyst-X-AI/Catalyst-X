@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadCaptureBox from '../components/LeadCaptureBox.astro';
+
+const allPages = await getCollection('pages');
+function groupPages(group) {
+  return allPages
+    .filter((p) => p.data.navGroup === group && p.data.showInNav)
+    .sort((a, b) => a.data.navOrder - b.data.navOrder);
+}
+const foundations = groupPages('foundations');
+const aiEra = groupPages('ai-era');
+const forYou = groupPages('for-you');
+---
+<BaseLayout title="Introduction" currentSlug="">
+  <div class="hero">
+    <span class="eyebrow">Catalyst X</span>
+    <h1>The psychology behind performance, resilience, and change — now under the added pressure of AI.</h1>
+    <p class="lede">Catalyst X helps organizations understand the human side of work, and helps the people inside those organizations navigate it personally: why people burn out, why change is exhausting, why trust breaks down, and — increasingly — how the rise of AI is reshaping all three.</p>
+    <a class="hero-link" href="/start/">Personally navigating stress, change, or AI anxiety right now? Start here &rarr;</a>
+  </div>
+  <div class="content-wrap">
+    <div class="section-label">Why Catalyst X</div>
+    <h2>Organizations run on more than strategy. They run on the psychological state of the people inside them.</h2>
+    <p>When that state is stable, teams learn faster, collaborate more honestly, and hold up under pressure. When it erodes — through burnout, eroding trust, or relentless disruption — even well-resourced strategies stall. Catalyst X exists to make that psychological layer visible, measurable, and something leaders can actually work with, rather than something they discover only after it shows up in attrition, missed targets, or a disengaged workforce.</p>
+    <p>Our work draws on organizational psychology, occupational health research, and behavioral science, translated into language and tools that fit how businesses actually operate. We are not a wellness add-on. We treat the psychological condition of a workforce as a core operating metric — one that sits alongside productivity, quality, and retention because it drives all three.</p>
+
+    <div class="stat-row">
+      <div class="stat-tile"><span class="stat-num">20%</span><span class="stat-label">of employees worldwide are engaged at work, down from 23% in 2022 — a three-year decline</span></div>
+      <div class="stat-tile"><span class="stat-num">66%</span><span class="stat-label">of U.S. employees experienced some form of burnout in 2025</span></div>
+      <div class="stat-tile"><span class="stat-num">44%</span><span class="stat-label">of organizations rank change fatigue as their single biggest barrier to executing strategy</span></div>
+      <div class="stat-tile"><span class="stat-num">40%</span><span class="stat-label">of workers now fear AI will make their job obsolete, up from 28% just two years ago</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">A Compounding Pressure</div>
+    <h2>The same organizations coping with ordinary workplace stress are now navigating an unprecedented psychological shift: AI.</h2>
+    <p>Every generation of workers has dealt with stress, change, and uncertainty. What's different now is that AI adoption doesn't just add another item to the change-management list — it reaches into how people think about their own competence, security, and value. This is the second half of what Catalyst X does: helping organizations understand corporate psychology specifically as it plays out in the age of AI, and building the practical, evidence-based responses that keep people — and performance — steady through it.</p>
+
+    <div class="divider"></div>
+    <div class="section-label">Explore the Topics</div>
+    <h2>Foundations of Workplace Psychology</h2>
+    <div class="card-grid">
+      {foundations.map((page) => (
+        <a class="topic-card" href={`/${page.id}/`}>
+          <div class="tag">Foundations</div>
+          <h4>{page.data.navLabel ?? page.data.title}</h4>
+          <p>{page.data.cardBlurb ?? page.data.lede}</p>
+        </a>
+      ))}
+    </div>
+
+    <h2 style="margin-top:40px;">Corporate Psychology in the Age of AI</h2>
+    <div class="card-grid">
+      {aiEra.map((page) => (
+        <a class="topic-card" href={`/${page.id}/`}>
+          <div class="tag">AI Era</div>
+          <h4>{page.data.navLabel ?? page.data.title}</h4>
+          <p>{page.data.cardBlurb ?? page.data.lede}</p>
+        </a>
+      ))}
+    </div>
+
+    <h2 style="margin-top:40px;">For You: Personal Support</h2>
+    <p style="margin-top:-8px;">Not everyone landing here is evaluating us for their organization — some of you are just trying to get through this week. This part of the site is written directly for you.</p>
+    <div class="card-grid">
+      {forYou.map((page) => (
+        <a class="topic-card" href={`/${page.id}/`}>
+          <div class="tag">For You</div>
+          <h4>{page.data.navLabel ?? page.data.title}</h4>
+          <p>{page.data.cardBlurb ?? page.data.lede}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">Our Approach</div>
+    <h2>How we think about the work</h2>
+    <div class="pillars">
+      <div class="pillar"><div class="num">01</div><h4 style="color:var(--navy); margin:6px 0 4px 0;">Diagnose</h4><p style="margin:0; font-size:14.5px;">Understand the actual psychological state of the workforce — through validated assessment, not assumption.</p></div>
+      <div class="pillar"><div class="num">02</div><h4 style="color:var(--navy); margin:6px 0 4px 0;">Design</h4><p style="margin:0; font-size:14.5px;">Build interventions — training, leadership practices, change processes — grounded in behavioral science, not generic wellness content.</p></div>
+      <div class="pillar"><div class="num">03</div><h4 style="color:var(--navy); margin:6px 0 4px 0;">Sustain</h4><p style="margin:0; font-size:14.5px;">Embed the capability in managers and systems so resilience holds after the engagement ends.</p></div>
+    </div>
+
+    <LeadCaptureBox />
+  </div>
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import '../styles/global.css';
+
+const {
+  title,
+  description = "Catalyst X — corporate psychology research and resources, including navigating work in the age of AI.",
+  currentSlug = '',
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} · Catalyst X</title>
+  <meta name="description" content={description} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={`${title} · Catalyst X`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <Sidebar currentSlug={currentSlug} />
+    <div class="main">
+      <slot />
+      <footer class="footer">
+        <div>&copy; {new Date().getFullYear()} Catalyst X. Educational content for informational purposes only — not a substitute for professional advice or care.</div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

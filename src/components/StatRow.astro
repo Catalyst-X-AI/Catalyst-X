@@ -1,0 +1,13 @@
+---
+const { tiles = [] } = Astro.props;
+---
+{tiles.length > 0 && (
+  <div class="stat-row">
+    {tiles.map((t) => (
+      <div class="stat-tile">
+        <span class="stat-num">{t.number}</span>
+        <span class="stat-label">{t.label}</span>
+      </div>
+    ))}
+  </div>
+)}
