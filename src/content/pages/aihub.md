@@ -1,5 +1,5 @@
 ---
-title: "The Psychological AI Transition"
+title: "The Psychological AI Transition - Test"
 navGroup: "ai-era"
 navLabel: "The Psychological AI Transition"
 navOrder: 1
