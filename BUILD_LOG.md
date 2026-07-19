@@ -2,7 +2,28 @@
 
 **Built by:** Tim (Developer), on content from Sam (Product Owner) & Harry (Content Builder)
 **Date:** 19 July 2026
-**Status:** Working build, verified locally. Not yet deployed — needs a Netlify account + git repo connected (see "What's left" below).
+**Status:** Code is live on GitHub and a Netlify site exists. Continuous deployment (GitHub → Netlify) and CMS login (Identity + Git Gateway) are the last steps — see "Infrastructure Setup Log" immediately below for exact status and how to pick it back up.
+
+---
+
+## Infrastructure Setup Log (Sam, maintained for Aayan's reviews)
+
+This section is the record of *how* GitHub and Netlify were actually set up, so anyone joining the project — a new developer, Tim, future-Sam — can see exactly what exists, what it's called, and what's still open, without having to reconstruct it from chat history.
+
+**GitHub**
+- Organization: `catalystx-ai` (free plan) — chosen over a personal account specifically so repo access isn't tied to Aayan's personal login as the dev team grows.
+- Repository: [`catalystx-ai/Catalyst-X`](https://github.com/catalystx-ai/Catalyst-X), created by Aayan, private.
+- Initial code push: done by Tim on 19 July 2026, authenticated with a short-lived, single-repo-scoped fine-grained Personal Access Token that Aayan generated and shared for that one push. The token was removed from the local git config immediately after pushing and Aayan was asked to revoke/regenerate it in GitHub settings as a hygiene step.
+- **Adding developers:** `github.com/orgs/catalystx-ai/people` → Invite member. For repo-level access, create a Team (Org → Teams → New team), add members, then grant that team **Write** access on the `Catalyst-X` repo (repo → Settings → Collaborators and teams). For one or two early hires, adding them directly as repo collaborators with Write access is fine without a Team.
+- **Open:** no developers added yet — pending the actual hires Aayan mentioned.
+
+**Netlify**
+- Account: `aayansalmarayan@gmail.com`, signed in via Google, Free plan. Connected to this Claude session via Netlify's official connector (Claude Settings → Connectors) rather than a browser walkthrough, once Aayan enabled connector search.
+- Team/workspace slug: `aayansalmarayan`.
+- Site created: name `catalyst-x`, site ID `93303ce9-54a4-4761-a5e6-974c06342cea`, default URL `http://catalyst-x.netlify.app` (no custom domain yet — still an open item from the earlier Product Owner Review).
+- **Deployment:** the one-off CLI deploy path (`@netlify/mcp` proxy deploy) failed twice with `403 Forbidden` on this brand-new account — not chased further, since the better long-term setup is continuous deployment from GitHub anyway. Aayan is linking the site to `catalystx-ai/Catalyst-X` directly in the Netlify dashboard (Site configuration → Build & deploy → Continuous deployment → Link repository), which will auto-deploy on every push to `main` going forward. Build settings (`npm run build`, publish `dist`) are already defined in `netlify.toml` in the repo, so Netlify should pick them up automatically.
+- **CMS login:** Identity and Git Gateway need to be enabled once the site is linked (Site configuration → Identity → Enable Identity, then Services → Git Gateway → Enable). Sam and Harry still need to be invited as Identity users once that's on — that's what will let them actually log into `/admin` and edit content without Tim.
+- **Open / not yet confirmed:** repo linked + first deploy succeeded; Identity + Git Gateway enabled; Sam/Harry invited as Identity users; form-submission email notifications turned on; custom domain.
 
 ---
 
