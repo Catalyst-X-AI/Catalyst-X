@@ -2,7 +2,7 @@
 
 **Built by:** Tim (Developer), on content from Sam (Product Owner) & Harry (Content Builder)
 **Date:** 19 July 2026
-**Status:** Code is live on GitHub and a Netlify site exists. Continuous deployment (GitHub → Netlify) and CMS login (Identity + Git Gateway) are the last steps — see "Infrastructure Setup Log" immediately below for exact status and how to pick it back up.
+**Status:** Live at https://catalyst-x.netlify.app — repo linked to Netlify, continuous deployment confirmed working (deploy state: ready). CMS login (Identity + Git Gateway) is the remaining open step — see "Infrastructure Setup Log" immediately below for exact status.
 
 ---
 
@@ -21,9 +21,10 @@ This section is the record of *how* GitHub and Netlify were actually set up, so 
 - Account: `aayansalmarayan@gmail.com`, signed in via Google, Free plan. Connected to this Claude session via Netlify's official connector (Claude Settings → Connectors) rather than a browser walkthrough, once Aayan enabled connector search.
 - Team/workspace slug: `aayansalmarayan`.
 - Site created: name `catalyst-x`, site ID `93303ce9-54a4-4761-a5e6-974c06342cea`, default URL `http://catalyst-x.netlify.app` (no custom domain yet — still an open item from the earlier Product Owner Review).
-- **Deployment:** the one-off CLI deploy path (`@netlify/mcp` proxy deploy) failed twice with `403 Forbidden` on this brand-new account — not chased further, since the better long-term setup is continuous deployment from GitHub anyway. Aayan is linking the site to `catalystx-ai/Catalyst-X` directly in the Netlify dashboard (Site configuration → Build & deploy → Continuous deployment → Link repository), which will auto-deploy on every push to `main` going forward. Build settings (`npm run build`, publish `dist`) are already defined in `netlify.toml` in the repo, so Netlify should pick them up automatically.
-- **CMS login:** Identity and Git Gateway need to be enabled once the site is linked (Site configuration → Identity → Enable Identity, then Services → Git Gateway → Enable). Sam and Harry still need to be invited as Identity users once that's on — that's what will let them actually log into `/admin` and edit content without Tim.
-- **Open / not yet confirmed:** repo linked + first deploy succeeded; Identity + Git Gateway enabled; Sam/Harry invited as Identity users; form-submission email notifications turned on; custom domain.
+- **Deployment:** the one-off CLI deploy path (`@netlify/mcp` proxy deploy) failed twice with `403 Forbidden` on this brand-new account — not chased further, since the better long-term setup is continuous deployment from GitHub anyway. Aayan linked the site to `catalystx-ai/Catalyst-X` in the Netlify dashboard (Site configuration → Build & deploy → Continuous deployment → Link repository); Netlify picked up the build settings from `netlify.toml` automatically and the first deploy succeeded (state: `ready`). **Live URL: https://catalyst-x.netlify.app.** Every push to `main` will now auto-deploy.
+- **Forms:** Netlify's Forms feature was off by default and had to be explicitly enabled (Site configuration → Forms, or via API) *after* the first deploy — form detection only runs during a build, so the two forms (`lead-capture`, `contact`) weren't registered by the first deploy. This commit exists specifically to trigger a second deploy so Netlify's form parser scans the HTML with Forms now on. If `Site configuration → Forms` still shows no forms after this deploy finishes, that's the first thing to check.
+- **CMS login:** Identity and Git Gateway still need to be enabled (Site configuration → Identity → Enable Identity, then Services → Git Gateway → Enable). Sam and Harry still need to be invited as Identity users once that's on — that's what will let them actually log into `/admin` and edit content without Tim.
+- **Open / not yet confirmed:** Identity + Git Gateway enabled; Sam/Harry invited as Identity users; form-submission email notifications turned on; custom domain.
 
 ---
 
